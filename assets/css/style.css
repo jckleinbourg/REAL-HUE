@@ -1,0 +1,56 @@
+/* * * CLEAN START * * */
+
+* {
+	margin: 0;
+	overflow: hidden;
+	min-height: 100vh;
+}
+
+
+
+/***************************
+        HERE WE GO!
+****************************/
+
+body > div {
+	display: grid;
+	min-width: 100vw;
+}
+body > div > div {
+	width: 100%
+}
+
+
+/* --- THE BACKGROUND --- */
+#bg{
+	background-color: #ff0000;
+	position: absolute;
+	min-height: 100vh;
+	
+}
+
+/* ---!! HERE ARE THE HTML COLOR ZONES !! --- */
+
+#anim1{
+	grid-template-columns: 1fr;
+}
+#anim2{
+	grid-template-columns: 1fr 1fr;
+}
+#anim3{
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+
+/* **I N F I N I T E S C R O L L I N G** */
+
+body{
+	transform: translate3d(0, 0, 0);
+}
+body > div {
+	/*driven in JS*/
+}
+@keyframes moveSlideshow {
+	/*driven in JS*/
+}
