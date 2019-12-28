@@ -9,14 +9,14 @@ const REFRESH_RATE = 60;
 const ANIM1_STAY = 12;
 const ANIM1_CHANGE = 8;
 
-const ANIM2_STAY = 0;
-const ANIM2_CHANGE = 15;
+const ANIM2_STAY = 6;
+const ANIM2_CHANGE = 4;
 
-const ANIM3_STAY = 0;
-const ANIM3_CHANGE = 15;
+const ANIM3_STAY = 5;
+const ANIM3_CHANGE = 10;
 
 //times for each color to scroll out of the screen, in s
-var scroll_times = [20, 10, 5];
+var SCROLL_TIMES = [false, 20, 10, 5];
 
 
 
@@ -63,8 +63,8 @@ function checkKey(e) {
 	//detect keys
     if (e.keyCode == '38') {//up arrow
 		__scroll_index++;
-		if (__scroll_index >= scroll_times.length){
-			__scroll_index = scroll_times.length-1;
+		if (__scroll_index >= SCROLL_TIMES.length){
+			__scroll_index = SCROLL_TIMES.length-1;
 		} else {
 			go();
 		}
@@ -164,33 +164,56 @@ function startAnim(_zone){
 	var _cols = document.getElementById("anim"+_zone).childElementCount;
 	
 	// -CSS GEAR-
-	document.getElementById("anim" + _zone).animate(
-		[
-			{ transform: 'translateX(0px)' }, 
-			{ transform: 'translateX('+(100/_cols)+'vw)' }
-		],{
-			duration: scroll_times[__scroll_index]*1000,
-			iterations: Infinity
-		}
-	);
+	var duration;
+	if (SCROLL_TIMES[__scroll_index]){
+		
+		duration = SCROLL_TIMES[__scroll_index]*1000;
+		
+		document.getElementById("anim" + _zone).animate(
+			[
+				{ transform: 'translateX(0px)' }, 
+				{ transform: 'translateX('+(100/_cols)+'vw)' }
+			],{
+				duration: duration,
+				iterations: Infinity
+			}
+		);
+		
+	} else {
+		
+		duration = 1000;
+		
+		document.getElementById("anim" + _zone).animate(
+			[
+				{ transform: 'none' }, 
+				{ transform: 'none' }
+			],{
+				duration: duration,
+				iterations: Infinity
+			}
+		);
+	}
+
 	var cycle_counter = 0;
 	
-	__timer_jumper = setInterval(
-		function(){
-			cycle_counter++;
-			if (cycle_counter == _cols){
-				cycle_counter = 0;
-			}
-			var last_col = document.getElementById("anim"+_zone+"-zone"+_cols).style.backgroundColor;
-			for (var i=_cols; i>1; i--){
-				document.getElementById("anim"+_zone+"-zone"+i).style.backgroundColor = document.getElementById("anim"+_zone+"-zone"+(i-1)).style.backgroundColor;
-			}
-			document.getElementById("anim"+_zone+"-zone1").style.backgroundColor = last_col;
-			document.getElementById("bg").style.backgroundColor = document.getElementById("anim"+_zone+"-zone"+_cols).style.backgroundColor;
-			
-		},
-		scroll_times[__scroll_index]*1000
-	);
+	if (SCROLL_TIMES[__scroll_index]){
+		__timer_jumper = setInterval(
+			function(){
+				cycle_counter++;
+				if (cycle_counter == _cols){
+					cycle_counter = 0;
+				}
+				var last_col = document.getElementById("anim"+_zone+"-zone"+_cols).style.backgroundColor;
+				for (var i=_cols; i>1; i--){
+					document.getElementById("anim"+_zone+"-zone"+i).style.backgroundColor = document.getElementById("anim"+_zone+"-zone"+(i-1)).style.backgroundColor;
+				}
+				document.getElementById("anim"+_zone+"-zone1").style.backgroundColor = last_col;
+				document.getElementById("bg").style.backgroundColor = document.getElementById("anim"+_zone+"-zone"+_cols).style.backgroundColor;
+				
+			},
+			duration
+		);
+	}
 	
 	document.getElementById("anim"+_zone).style.display = "grid";
 	
