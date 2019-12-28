@@ -5,10 +5,10 @@
 ![REAL HUE](https://jck-interactive.com/realhue/assets/img/realhue.png)
 
 **CONTROLS:**
- - CURSOR KEYS LEFT/RIGHT: change numbers of columns CURSOR KEYS
+ - CURSOR KEYS LEFT/RIGHT: change numbers of columns
  -  CURSOR UP/DOWN: change scroll speed
 
-**[LINK TO MINI APP](https://jck-interactive.com/realhue/)**
+## **[LINK TO MINI APP](https://jck-interactive.com/realhue/)**
 
 *do What The Fuck you want to Public License
 Version 1.0, March 2000
